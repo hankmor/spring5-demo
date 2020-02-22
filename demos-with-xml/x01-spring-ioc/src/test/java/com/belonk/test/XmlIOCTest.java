@@ -1,6 +1,6 @@
 package com.belonk.test;
 
-import com.belonk.bean.MyBean;
+import com.belonk.bean.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -51,19 +51,35 @@ public class XmlIOCTest {
 
 	@Test
 	public void test1() {
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
+		User                           user               = applicationContext.getBean(User.class);
+		System.out.println("user : " + user);
+		/*~:
+		user: User(name=spring)
+		*/
+	}
+
+	@Test
+	public void test2() {
 		ClassPathXmlApplicationContext applicationContext  = new ClassPathXmlApplicationContext("spring.xml");
 		String[]                       beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 		int                            beanDefinitionCount = applicationContext.getBeanDefinitionCount();
-		MyBean                         myBean              = applicationContext.getBean(MyBean.class);
 		System.out.println("bean count: " + beanDefinitionCount);
 		for (String beanDefinitionName : beanDefinitionNames) {
 			System.out.println(beanDefinitionName);
 		}
-		System.out.println("myBean : " + myBean);
 		/*~:
-		bean count: 1
-		myBean
-		mybean: MyBean(name=spring)
+		bean count: 9
+		user
+		userController
+		userDao
+		userService
+		// context:component-scan标签默认开启了注解支持，所以会自动装在以下bean，如果其annotation-config属性设置为false，则不加载
+		org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+		org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+		org.springframework.context.annotation.internalCommonAnnotationProcessor
+		org.springframework.context.event.internalEventListenerProcessor
+		org.springframework.context.event.internalEventListenerFactory
 		*/
 	}
 }

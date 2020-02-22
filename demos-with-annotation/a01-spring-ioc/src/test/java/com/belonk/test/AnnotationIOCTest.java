@@ -1,6 +1,6 @@
 package com.belonk.test;
 
-import com.belonk.bean.MyBean;
+import com.belonk.bean.User;
 import com.belonk.config.SpringConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -53,25 +53,37 @@ public class AnnotationIOCTest {
 	@Test
 	public void test1() {
 		// 构造基于注解配置的IOC容器，传入配置类
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
+		User                               user               = applicationContext.getBean(User.class);
+		System.out.println("user : " + user);
+		/*~:
+		user : User(name=spring)
+		*/
+	}
+
+	@Test
+	public void test2() {
+		// 构造基于注解配置的IOC容器，传入配置类
 		AnnotationConfigApplicationContext applicationContext  = new AnnotationConfigApplicationContext(SpringConfig.class);
 		int                                beanDefinitionCount = applicationContext.getBeanDefinitionCount();
 		String[]                           beanDefinitionNames = applicationContext.getBeanDefinitionNames();
-		MyBean                             myBean              = applicationContext.getBean(MyBean.class);
+		User                               user                = applicationContext.getBean(User.class);
 		System.out.println("bean count: " + beanDefinitionCount);
 		for (String beanDefinitionName : beanDefinitionNames) {
 			System.out.println(beanDefinitionName);
 		}
-		System.out.println("myBean : " + myBean);
 		/*~:
-		bean count: 7
+		bean count: 10
 		org.springframework.context.annotation.internalConfigurationAnnotationProcessor
 		org.springframework.context.annotation.internalAutowiredAnnotationProcessor
 		org.springframework.context.annotation.internalCommonAnnotationProcessor
 		org.springframework.context.event.internalEventListenerProcessor
 		org.springframework.context.event.internalEventListenerFactory
 		springConfig
-		bean
-		myBean : MyBean(name=spring)
+		userController
+		userDao
+		userService
+		user
 		 */
 	}
 }

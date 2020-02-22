@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     <!--定义bean-->
-    <bean id="myBean" class="com.belonk.bean.MyBean">
+    <bean id="user" class="com.belonk.bean.User">
         <property name="name" value="spring"/>
     </bean>
+    <!--
+        1、自动开启注解支持，即annotation-config默认为true
+        2、默认use-default-filters为true，表示默认扫描策略，即自动扫描@Controller、@Service、@Repository
+        、@Component注解的bean，可以设置false来自定义扫描策略
+    -->
+    <context:component-scan base-package="com.belonk" annotation-config="true" use-default-filters="true"/>
 </beans>
