@@ -67,7 +67,6 @@ public class AnnotationIOCTest {
 		AnnotationConfigApplicationContext applicationContext  = new AnnotationConfigApplicationContext(SpringConfig.class);
 		int                                beanDefinitionCount = applicationContext.getBeanDefinitionCount();
 		String[]                           beanDefinitionNames = applicationContext.getBeanDefinitionNames();
-		User                               user                = applicationContext.getBean(User.class);
 		System.out.println("bean count: " + beanDefinitionCount);
 		for (String beanDefinitionName : beanDefinitionNames) {
 			System.out.println(beanDefinitionName);

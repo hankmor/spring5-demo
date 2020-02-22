@@ -1,5 +1,6 @@
 package com.belonk.controller;
 
+import com.belonk.MyFilter;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Controller;
  * @since 1.0
  */
 @Controller
-public class UserController {
+public class UserController implements MyFilter {
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 *

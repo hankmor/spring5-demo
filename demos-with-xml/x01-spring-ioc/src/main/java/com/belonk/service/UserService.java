@@ -1,5 +1,6 @@
 package com.belonk.service;
 
+import com.belonk.MyFilter;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @since 1.0
  */
 @Service
-public class UserService {
+public class UserService implements MyFilter {
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 *
