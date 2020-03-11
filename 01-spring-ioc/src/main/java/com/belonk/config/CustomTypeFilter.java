@@ -6,7 +6,6 @@ import org.springframework.core.type.ClassMetadata;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.core.type.filter.TypeFilter;
-import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 
@@ -72,8 +71,8 @@ public class CustomTypeFilter implements TypeFilter {
 		Resource resource = metadataReader.getResource();
 
 		// 通过上边三个信息来定义扫描规则
-		// 这里测试标注了@Repository注解的类会被扫描到，即userDao
-		if (annotationMetadata.getAnnotationTypes().contains(Repository.class.getCanonicalName())) {
+		// 主要被扫描的class类名包含user，则会被扫描到
+		if (classMetadata.getClassName().contains("user") || classMetadata.getClassName().contains("User")) {
 			return true;
 		}
 		return false;
