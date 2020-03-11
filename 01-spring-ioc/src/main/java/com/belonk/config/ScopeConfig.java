@@ -79,7 +79,7 @@ public class ScopeConfig {
 	 * <p>
 	 * 如果scope为prototype，则容器创建时并不会创建bean，而是在获取bean时创建bean。
 	 *
-	 * @return
+	 * @return bean
 	 */
 	@Bean
 	@Scope("prototype")
@@ -92,7 +92,7 @@ public class ScopeConfig {
 	 * 默认情况下，单例bean会在容器创建时创建，可以使用@Lazy注解来使bean被延迟加载，被延迟加载的bean并不会在容器创建
 	 * 时创建，而是在第一次获取bean时创建。
 	 *
-	 * @return
+	 * @return bean
 	 */
 	@Bean
 	@Lazy

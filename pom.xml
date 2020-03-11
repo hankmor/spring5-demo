@@ -20,8 +20,7 @@
     </properties>
 
     <modules>
-        <module>demos-with-xml</module>
-        <module>demos-with-annotation</module>
+        <module>01-spring-ioc</module>
     </modules>
 
     <dependencies>
