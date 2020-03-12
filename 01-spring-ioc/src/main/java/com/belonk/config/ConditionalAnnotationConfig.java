@@ -68,6 +68,8 @@ public class ConditionalAnnotationConfig {
      * Conditional注解是Spring4.0以后新增的，用来判断bean是否可以注册，当配置的条件都满足时，
      * 则bean才会被注册。
      *
+     * 当Conditional注解用在类上时，表示该类中的bean，只有满足条件时才全部注册，否则都不注册
+     *
      * @return User对象
      */
     @Bean("billGates")
