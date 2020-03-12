@@ -1,10 +1,7 @@
 package com.belonk.test.componentScan;
 
 import com.belonk.bean.User;
-import com.belonk.config.BasicComponentScanConfig;
-import com.belonk.config.ComponentScanFilterConfig;
-import com.belonk.config.ComponentScanLazyConfig;
-import com.belonk.config.CustomFilterConfig;
+import com.belonk.config.*;
 import com.belonk.controller.UserController;
 import com.belonk.test.BaseIOCTest;
 import org.junit.jupiter.api.Test;
@@ -116,5 +113,25 @@ public class ComponentScanTest extends BaseIOCTest {
         创建UserController...
         获取UserController完成...
 		 */
+    }
+
+    @Test
+    public void testMultiComoponentScans() {
+        // 配置了多个ComponentScan，自动扫描@Service和@Controller
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MultiComponentScanConfig.class);
+        printBeans(context);
+        /*~:
+        bean count: 9
+        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
+        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
+        org.springframework.context.annotation.internalCommonAnnotationProcessor
+        org.springframework.context.event.internalEventListenerProcessor
+        org.springframework.context.event.internalEventListenerFactory
+        multiComponentScanConfig
+        userService
+        myUserController
+        userController
+
+         */
     }
 }
