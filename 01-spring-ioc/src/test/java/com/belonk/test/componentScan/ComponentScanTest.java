@@ -56,7 +56,7 @@ public class ComponentScanTest extends BaseIOCTest {
     public void testBasicComponentScan() {
         // 构造基于注解配置的IOC容器，传入配置类
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BasicComponentScanConfig.class);
-        User user = applicationContext.getBean(User.class);
+        User                               user               = applicationContext.getBean(User.class);
         System.out.println("user : " + user);
 		/*~:
 		user : User(name=spring)
@@ -131,7 +131,6 @@ public class ComponentScanTest extends BaseIOCTest {
         userService
         myUserController
         userController
-
          */
     }
 }
