@@ -1,18 +1,18 @@
-package com.belonk.test.imports;
+package com.belonk.test.lifecycle;
 
-import com.belonk.imports.config.ImportConfig;
+import com.belonk.lifecycle.config.BeanLifeCycleConfig;
 import com.belonk.test.BaseIOCTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * Created by sun on 2020/3/16.
+ * Created by sun on 2020/3/18.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class LifeCycleTest extends BaseIOCTest {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -52,22 +52,17 @@ public class ImportBeansTest extends BaseIOCTest {
      */
 
     @Test
-    public void testImport() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
+    public void testLifeCycle1() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BeanLifeCycleConfig.class);
+        // 默认bean都是单例的，在容器初始化完成后，会调用bean的构造器和初始化方法
+        System.out.println("容器初始化完成...");
+        // 容器自动退出，则不会调用bean的消费方法，需要手动关闭容器
+        context.close();
         /*~:
-        bean count: 11
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        zoo
+        invoke LifeCycleBean constructor
+        invoke LifeCycleBean init method.
+        容器初始化完成...
+        invoke LifeCycleBean destroy method.
          */
     }
 }

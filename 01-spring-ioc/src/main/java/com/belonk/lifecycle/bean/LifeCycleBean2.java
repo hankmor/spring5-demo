@@ -1,18 +1,16 @@
-package com.belonk.test.imports;
+package com.belonk.lifecycle.bean;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.test.BaseIOCTest;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
- * Created by sun on 2020/3/16.
+ * Created by sun on 2020/3/18.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class LifeCycleBean2 implements InitializingBean, DisposableBean {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -41,7 +39,9 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-
+    public LifeCycleBean2() {
+        System.out.println("invoke LifeCycleBean2 constructor");
+    }
 
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,23 +51,21 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    @Test
-    public void testImport() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
-        /*~:
-        bean count: 11
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        zoo
-         */
+    /**
+     * bean销毁时调用。
+     *
+     * @throws Exception 异常
+     */
+    public void destroy() throws Exception {
+        System.out.println("invoke LifeCycleBean2 destroy method");
+    }
+
+    /**
+     * bean创建并且所有属性都设置了值过后调用。
+     *
+     * @throws Exception 异常
+     */
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("invoke LifeCycleBean2 afterPropertiesSet method");
     }
 }

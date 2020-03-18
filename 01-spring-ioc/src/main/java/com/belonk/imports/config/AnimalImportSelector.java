@@ -1,18 +1,18 @@
-package com.belonk.test.imports;
+package com.belonk.imports.config;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.test.BaseIOCTest;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ImportSelector;
+import org.springframework.core.type.AnnotationMetadata;
 
 /**
+ * 自定义导入器，可以导入多个类。
+ * <p>
  * Created by sun on 2020/3/16.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class AnimalImportSelector implements ImportSelector {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -51,23 +51,13 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    @Test
-    public void testImport() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
-        /*~:
-        bean count: 11
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        zoo
-         */
+    /**
+     * 导入多个类
+     *
+     * @param importingClassMetadata 被导入的类上的注解信息
+     * @return 导入的类全类名
+     */
+    public String[] selectImports(AnnotationMetadata importingClassMetadata) {
+        return new String[]{"com.belonk.imports.bean.Fox", "com.belonk.imports.bean.Tiger"};
     }
 }

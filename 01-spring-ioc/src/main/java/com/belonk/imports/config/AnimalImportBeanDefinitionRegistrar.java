@@ -1,9 +1,10 @@
-package com.belonk.test.imports;
+package com.belonk.imports.config;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.test.BaseIOCTest;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.belonk.imports.bean.Zoo;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.core.type.AnnotationMetadata;
 
 /**
  * Created by sun on 2020/3/16.
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class AnimalImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -51,23 +52,18 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    @Test
-    public void testImport() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
-        /*~:
-        bean count: 11
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        zoo
-         */
+    /**
+     * 使用BeanDefinitionRegistry来向IOC容器注册或者移除bean。
+     *
+     * @param importingClassMetadata 当前类的注解信息
+     * @param registry               bean注册表
+     */
+    public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
+        // 主要容器中注册了Fox和Tiger，那就再注册一个Zoo类
+        if (registry.containsBeanDefinition("com.belonk.imports.bean.Fox")
+                && registry.containsBeanDefinition("com.belonk.imports.bean.Tiger")) {
+            RootBeanDefinition beanDefinition = new RootBeanDefinition(Zoo.class);
+            registry.registerBeanDefinition("zoo", beanDefinition);
+        }
     }
 }
