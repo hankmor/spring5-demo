@@ -1,18 +1,18 @@
-package com.belonk.test.imports;
+package com.belonk.conditional.test;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.test.BaseIOCTest;
+import com.belonk.conditional.config.ConditionalAnnotationConfig;
+import com.belonk.util.Printer;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * Created by sun on 2020/3/16.
+ * Created by sun on 2020/3/18.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class ConditionalAnnotationTest {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -51,23 +51,17 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
+    // ========================================================================================================
+    //
+    // 条件是通过系统环境变量os.name来判断操作系统，测试时可以在启动时设置VM的参数来更改os.name的值，格式如下：
+    //     -Dos.name=linux
+    // 这样，环境变量取出来的os.name就为设置的值了
+    //
+    // ========================================================================================================
+
     @Test
-    public void testImport() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
-        /*~:
-        bean count: 11
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        zoo
-         */
+    public void testConditional() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConditionalAnnotationConfig.class);
+        Printer.printBeans(context);
     }
 }

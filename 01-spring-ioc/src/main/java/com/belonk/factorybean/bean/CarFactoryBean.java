@@ -1,18 +1,15 @@
-package com.belonk.test.imports;
+package com.belonk.factorybean.bean;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.test.BaseIOCTest;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.FactoryBean;
 
 /**
- * Created by sun on 2020/3/16.
+ * Created by sun on 2020/3/18.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class CarFactoryBean implements FactoryBean<Car> {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -51,23 +48,34 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    @Test
-    public void testImport() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
-        /*~:
-        bean count: 11
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        zoo
-         */
+    /**
+     * 返回实际对象的实例，该对象默认是单例的，也可以更改为原型的，见{@link #isSingleton()}.
+     *
+     * @return FactoryBean创建的bean实例，可以为null
+     */
+    public Car getObject() {
+        // return null;
+        return new Car();
+    }
+
+    /**
+     * 获取创建对象的类型，如果未明确指定则返回null。
+     *
+     * @return FactoryBean创建的bean的类型
+     */
+    public Class<?> getObjectType() {
+        return Car.class;
+    }
+
+    /**
+     * 返回true则表示该FactoryBean创建的bean实例时单例的，否则是prototype的。
+     * <p>
+     * 默认返回true。
+     *
+     * @return true则是单例，false则是prototype
+     */
+    public boolean isSingleton() {
+        // return true;
+        return false;
     }
 }

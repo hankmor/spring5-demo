@@ -1,7 +1,7 @@
-package com.belonk.test.imports;
+package com.belonk.imports.test;
 
 import com.belonk.imports.config.ImportConfig;
-import com.belonk.test.BaseIOCTest;
+import com.belonk.util.Printer;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class ImportBeansTest {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -54,7 +54,7 @@ public class ImportBeansTest extends BaseIOCTest {
     @Test
     public void testImport() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
+        Printer.printBeans(context);
         /*~:
         bean count: 11
         org.springframework.context.annotation.internalConfigurationAnnotationProcessor

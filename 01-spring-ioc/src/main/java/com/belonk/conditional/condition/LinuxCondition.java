@@ -1,18 +1,21 @@
-package com.belonk.test.imports;
+package com.belonk.conditional.condition;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.test.BaseIOCTest;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.env.Environment;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * Created by sun on 2020/3/16.
+ * 根据当前操作系统来判断否符合条件。
+ * <p>
+ * 如果当前操作系统时linux，则会满足条件。
+ * Created by sun on 2020/3/13.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class LinuxCondition implements Condition {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -51,23 +54,20 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    @Test
-    public void testImport() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
-        /*~:
-        bean count: 11
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        zoo
-         */
+    /**
+     * 判断Bean是否符合条件，符合条件则返回true，否则返回false。
+     *
+     * @param context  条件上下文
+     * @param metadata 当前被判断的bean的注解元数据
+     * @return true则符合条件，fasle不符合条件
+     */
+    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+        // 通过ConditionContext可以获取bean定义注册器、bean工厂、类加载器、环境等等对象
+        Environment environment = context.getEnvironment();
+        String osName = environment.getProperty("os.name");
+        if (osName == null || "".equals(osName)) {
+            throw new RuntimeException("Can not find environment variable \"os.name\".");
+        }
+        return osName.toLowerCase().contains("linux");
     }
 }

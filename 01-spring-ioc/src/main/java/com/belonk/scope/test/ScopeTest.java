@@ -1,8 +1,8 @@
-package com.belonk.test.scope;
+package com.belonk.scope.test;
 
+import com.belonk.componentscan.bean.User;
 import com.belonk.scope.bean.LazyBean;
 import com.belonk.scope.bean.PrototypeBean;
-import com.belonk.componentscan.bean.User;
 import com.belonk.scope.config.ScopeConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
