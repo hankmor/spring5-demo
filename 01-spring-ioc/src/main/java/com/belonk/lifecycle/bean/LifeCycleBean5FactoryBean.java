@@ -1,25 +1,17 @@
-package com.belonk.lifecycle.config;
+package com.belonk.lifecycle.bean;
 
-import com.belonk.lifecycle.bean.LifeCycleBean;
-import com.belonk.lifecycle.bean.LifeCycleBean2;
-import com.belonk.lifecycle.bean.LifeCycleBean3;
-import com.belonk.lifecycle.bean.LifeCycleBean4;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.stereotype.Component;
 
 /**
- * Bean的生命周期：Bean创建、初始化、销毁的过程。
- * <p>
- * Created by sun on 2020/3/18.
+ * Created by sun on 2020/3/19.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-@Configuration
-@ComponentScan("com.belonk.lifecycle")
-public class BeanLifeCycleConfig {
+@Component
+public class LifeCycleBean5FactoryBean implements FactoryBean<LifeCycleBean5> {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -58,25 +50,14 @@ public class BeanLifeCycleConfig {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    @Bean(initMethod = "init", destroyMethod = "destroy")
-    public LifeCycleBean lifeCycleBean() {
-        return new LifeCycleBean();
+    public LifeCycleBean5 getObject() throws Exception {
+        LifeCycleBean5 lifeCycleBean5 = new LifeCycleBean5();
+        // 这里时手动创建的Bean，不会执行Bean的初始化和销毁方法，需要手动调用
+        // lifeCycleBean5.init();
+        return lifeCycleBean5;
     }
 
-    @Bean
-    public LifeCycleBean2 lifeCycleBean2() {
-        return new LifeCycleBean2();
-    }
-
-    @Bean
-    public LifeCycleBean3 lifeCycleBean3() {
-        return new LifeCycleBean3();
-    }
-
-    @Bean
-    public LifeCycleBean4 lifeCycleBean4() {
-        LifeCycleBean4 lifeCycleBean4 = new LifeCycleBean4();
-        lifeCycleBean4.setName("lifeCycleBean4");
-        return lifeCycleBean4;
+    public Class<?> getObjectType() {
+        return LifeCycleBean5.class;
     }
 }
