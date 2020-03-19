@@ -1,18 +1,16 @@
-package com.belonk.test.imports;
+package com.belonk.lifecycle.bean;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.test.BaseIOCTest;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
- * Created by sun on 2020/3/16.
+ * Created by sun on 2020/3/19.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest extends BaseIOCTest {
+public class LifeCycleBean3 {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -41,7 +39,9 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-
+    public LifeCycleBean3() {
+        System.out.println("invoke LifeCycleBean3 constructor ... ");
+    }
 
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,23 +51,17 @@ public class ImportBeansTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    @Test
-    public void testImport() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-        printBeans(context);
-        /*~:
-        bean count: 11
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        zoo
-         */
+    /**
+     * JSR 250规范：
+     * PostConstruct注解用在方法上，依赖注入完成(属性设置值)后、且Bean加入到容器前调用。
+     */
+    @PostConstruct
+    public void init() {
+        System.out.println("invoke LifeCycleBean3 init method ...");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("invoke LifeCycleBean3 destory method ...");
     }
 }

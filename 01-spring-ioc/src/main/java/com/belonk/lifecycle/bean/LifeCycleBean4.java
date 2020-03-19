@@ -1,18 +1,20 @@
-package com.belonk.test.lifecycle;
+package com.belonk.lifecycle.bean;
 
-import com.belonk.lifecycle.config.BeanLifeCycleConfig;
-import com.belonk.test.BaseIOCTest;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import lombok.Data;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
- * Created by sun on 2020/3/18.
+ * Created by sun on 2020/3/19.
  *
  * @author sunfuchang03@126.com
  * @version 1.0
  * @since 1.0
  */
-public class LifeCycleTest extends BaseIOCTest {
+@Data
+public class LifeCycleBean4 {
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -31,7 +33,7 @@ public class LifeCycleTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-
+    private String name;
 
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,7 +43,9 @@ public class LifeCycleTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-
+    public LifeCycleBean4() {
+        System.out.println("invoke LifeCycleBean4 constructor ... ");
+    }
 
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,18 +55,17 @@ public class LifeCycleTest extends BaseIOCTest {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    @Test
-    public void testLifeCycle1() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BeanLifeCycleConfig.class);
-        // 默认bean都是单例的，在容器初始化完成后，会调用bean的构造器和初始化方法
-        System.out.println("容器初始化完成...");
-        // 容器自动退出，则不会调用bean的消费方法，需要手动关闭容器
-        context.close();
-        /*~:
-        invoke LifeCycleBean constructor
-        invoke LifeCycleBean init method.
-        容器初始化完成...
-        invoke LifeCycleBean destroy method.
-         */
+    /**
+     * JSR 250规范：
+     * PostConstruct注解用在方法上，依赖注入完成(属性设置值)后、且Bean加入到容器前调用。
+     */
+    @PostConstruct
+    public void init() {
+        System.out.println("invoke LifeCycleBean4 init method ...");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("invoke LifeCycleBean4 destory method ...");
     }
 }
