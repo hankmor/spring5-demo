@@ -62,13 +62,13 @@ public class LifeCycleBean5 implements InitializingBean, DisposableBean {
         System.out.println("invoke LifeCycleBean5 init method ...");
     }
 
-    // 不会执行
+    // Bean销毁时不会自动执行
     @PreDestroy
     public void destroy() {
         System.out.println("invoke LifeCycleBean5 destory method ...");
     }
 
-    // 不会执行
+    // 容器创建完成时并不会自动执行
     public void afterPropertiesSet() throws Exception {
         System.out.println("invoke LifeCycleBean5 afterPropertiesSet method ...");
     }
