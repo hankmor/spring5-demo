@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 /**
  * Created by sun on 2020/3/23.
  *
@@ -80,6 +84,36 @@ public class BeanHolder {
      */
     @Autowired
     private PrimaryBean primaryBean;
+
+    // ~ JSR规范定义的装配注解
+
+    /**
+     * JSR250规范定义，存在多个Bean，可以结合@Primary注解功能优先注入bean
+     */
+    @Resource
+    private ResourceBean myResourceBean;
+
+    @Resource(name = "resourceBean1")
+    private ResourceBean resourceBean;
+
+    @Resource
+    @Named("resourceBean2")
+    private ResourceBean annotherResourceBean;
+
+    /*
+     * 使用@Inject注解，必须引入javax.inject jar包
+     */
+
+    /**
+     * JSR330规范定义, 支持构造器、属性和方法注入。
+     * 多个Bean时，可以支持@Primary功能
+     */
+    @Inject
+    private InjectBean injectBean;
+
+    @Inject
+    @Named("injectBean2")
+    private InjectBean annotherInjectBean;
 
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
