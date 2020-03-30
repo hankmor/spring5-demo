@@ -1,7 +1,9 @@
 package com.belonk.autowire.config;
 
+import com.belonk.autowire.bean.InjectBean;
 import com.belonk.autowire.bean.NecessaryBean;
 import com.belonk.autowire.bean.PrimaryBean;
+import com.belonk.autowire.bean.ResourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -87,5 +89,27 @@ public class AutowireBeanConfig {
     @Primary
     public PrimaryBean primaryBean2() {
         return new PrimaryBean("primaryBean2");
+    }
+
+    @Bean
+    @Primary
+    public ResourceBean resourceBean1() {
+        return new ResourceBean("resourceBean1");
+    }
+
+    @Bean
+    public ResourceBean resourceBean2() {
+        return new ResourceBean("resourceBean2");
+    }
+
+    @Bean
+    @Primary
+    public InjectBean injectBean1() {
+        return new InjectBean("injectBean1");
+    }
+
+    @Bean
+    public InjectBean injectBean2() {
+        return new InjectBean("injectBean2");
     }
 }
