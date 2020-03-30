@@ -1,9 +1,7 @@
 package com.belonk.autowire.config;
 
-import com.belonk.autowire.bean.InjectBean;
-import com.belonk.autowire.bean.NecessaryBean;
-import com.belonk.autowire.bean.PrimaryBean;
-import com.belonk.autowire.bean.ResourceBean;
+import com.belonk.autowire.bean.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -69,7 +67,6 @@ public class AutowireBeanConfig {
         return new NecessaryBean("necessaryBean2");
     }
 
-
     /*
      * 添加两个PrimaryBean
      */
@@ -111,5 +108,16 @@ public class AutowireBeanConfig {
     @Bean
     public InjectBean injectBean2() {
         return new InjectBean("injectBean2");
+    }
+
+    // 测试参数依赖
+
+    /*
+     * Bean car依赖一个Motor对象，该Motor对象容器里边已经存在，则会使用容器中的。
+     * Motor参数加了@Autowire，可以省略
+     */
+    @Bean
+    public Car car(@Autowired Motor motor) {
+        return new Car(motor);
     }
 }
