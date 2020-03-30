@@ -77,5 +77,12 @@ public class AutowireConfigTest {
         assert "resourceBean2".equals(annotherResourceBean.getName());
         assert "injectBean1".equals(injectBean.getName());
         assert "injectBean2".equals(annotherInjectBean.getName());
+
+        Motor motor = context.getBean(Motor.class);
+        Car   car   = context.getBean(Car.class);
+        assert motor == car.getMotor();
+
+        SpringAware springAware = context.getBean(SpringAware.class);
+        System.out.println(springAware);
     }
 }
