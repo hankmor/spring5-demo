@@ -21,6 +21,7 @@
 
     <modules>
         <module>01-spring-ioc</module>
+        <module>02-spring-aop</module>
         <module>common-util</module>
     </modules>
 
