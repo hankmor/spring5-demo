@@ -24,6 +24,7 @@
         <module>02-spring-aop</module>
         <module>common-util</module>
         <module>08-spring-sourcecode</module>
+        <module>03-spring-ext</module>
     </modules>
 
     <dependencies>
