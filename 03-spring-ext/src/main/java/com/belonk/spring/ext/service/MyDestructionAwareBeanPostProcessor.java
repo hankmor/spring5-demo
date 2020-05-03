@@ -1,18 +1,19 @@
-package com.belonk.imports.test;
+package com.belonk.spring.ext.service;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.util.Printer;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.config.DestructionAwareBeanPostProcessor;
+import org.springframework.stereotype.Component;
 
 /**
- * Created by sun on 2020/3/16.
+ * 用于添加销毁前回调。典型的用法是调用特定bean类型的自定义销毁回调，匹配相应的初始化回调
+ * <p>
+ * Created by sun on 2020/4/27.
  *
  * @author sunfuchang03@126.com
- * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest {
+@Component
+public class MyDestructionAwareBeanPostProcessor implements DestructionAwareBeanPostProcessor {
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 *
@@ -51,24 +52,15 @@ public class ImportBeansTest {
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 */
 
-	@Test
-	public void testImport() {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-		Printer.printBeans(context);
-        /*~:
-        bean count: 12
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        forXml
-        zoo`
-         */
+	//  自定义bean销毁，首先会回调此方法，然后再调用Bean的自定义销毁方法（@PreDestroy或DisposableBean接口）
+	public void postProcessBeforeDestruction(Object bean, String beanName) throws BeansException {
+		System.out.println("MyDestructionAwareBeanPostProcessor -> postProcessBeforeDestruction");
+		System.out.println("    bean : " + bean);
+		System.out.println("    beanName : " + beanName);
+	}
+
+	// 是否需要处理bean销毁，默认为true，如果返回false则不会回调postProcessBeforeDestruction
+	public boolean requiresDestruction(Object bean) {
+		return true;
 	}
 }

@@ -1,18 +1,20 @@
-package com.belonk.imports.test;
+package com.belonk.spring.ext.service;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.util.Printer;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import lombok.Data;
+import org.springframework.beans.factory.SmartInitializingSingleton;
+import org.springframework.stereotype.Component;
 
 /**
- * Created by sun on 2020/3/16.
+ * 在BeanFactory引导期间，在单例预实例化阶段结束时触发回调接口
+ *
+ * Created by sun on 2020/4/27.
  *
  * @author sunfuchang03@126.com
- * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest {
+@Component
+@Data
+public class MySmartInitializingSingleton implements SmartInitializingSingleton {
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 *
@@ -31,7 +33,7 @@ public class ImportBeansTest {
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 */
 
-
+	private String name;
 
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,24 +53,9 @@ public class ImportBeansTest {
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 */
 
-	@Test
-	public void testImport() {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-		Printer.printBeans(context);
-        /*~:
-        bean count: 12
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        forXml
-        zoo`
-         */
+	public void afterSingletonsInstantiated() {
+		System.out.println("MySmartInitializingSingleton -> afterSingletonsInstantiated");
+		System.out.println("    name : " + this.getName());
+		this.setName("set as MySmartInitializingSingleton");
 	}
 }
