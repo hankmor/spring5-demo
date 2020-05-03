@@ -1,18 +1,15 @@
-package com.belonk.imports.test;
+package com.belonk.spring.context;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.util.Printer;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.belonk.spring.common.UserService;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Created by sun on 2020/3/16.
+ * Created by sun on 2020/4/23.
  *
  * @author sunfuchang03@126.com
- * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest {
+public class UseClassPathXmlApplicationContext {
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 *
@@ -51,24 +48,13 @@ public class ImportBeansTest {
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 */
 
-	@Test
-	public void testImport() {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-		Printer.printBeans(context);
-        /*~:
-        bean count: 12
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        forXml
-        zoo`
-         */
+	public static void main(String[] args) {
+		// 创建ClassPathXmlApplicationContext
+		ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("beans.xml");
+		// getBeanDefinitionCount方法来自ListableBeanFactory, 而不是BeanDefinitionRegistry
+		System.out.println("共加载的bean定义数量：" + classPathXmlApplicationContext.getBeanDefinitionCount());
+		// 获取UserService
+		UserService userService = (UserService) classPathXmlApplicationContext.getBean("userService");
+		System.out.println(userService.getUser());
 	}
 }

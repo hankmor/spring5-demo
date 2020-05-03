@@ -1,18 +1,17 @@
-package com.belonk.imports.test;
+package com.belonk.spring.ext.test;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.util.Printer;
+import com.belonk.spring.ext.bean.Monkey;
+import com.belonk.spring.ext.config.ExtConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * Created by sun on 2020/3/16.
+ * Created by sun on 2020/4/26.
  *
  * @author sunfuchang03@126.com
- * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest {
+public class SpringExtTest {
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 *
@@ -52,23 +51,10 @@ public class ImportBeansTest {
 	 */
 
 	@Test
-	public void testImport() {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-		Printer.printBeans(context);
-        /*~:
-        bean count: 12
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        forXml
-        zoo`
-         */
+	public void test1() {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ExtConfig.class);
+		context.getBeansOfType(Monkey.class);
+		context.close();
 	}
+
 }

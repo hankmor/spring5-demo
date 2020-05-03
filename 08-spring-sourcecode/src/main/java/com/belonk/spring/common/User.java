@@ -1,18 +1,15 @@
-package com.belonk.imports.test;
+package com.belonk.spring.common;
 
-import com.belonk.imports.config.ImportConfig;
-import com.belonk.util.Printer;
-import org.junit.jupiter.api.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import lombok.Data;
 
 /**
- * Created by sun on 2020/3/16.
+ * Created by sun on 2020/4/23.
  *
  * @author sunfuchang03@126.com
- * @version 1.0
  * @since 1.0
  */
-public class ImportBeansTest {
+@Data
+public class User {
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 *
@@ -31,7 +28,7 @@ public class ImportBeansTest {
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 */
 
-
+	private String name;
 
 	/*
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,24 +48,5 @@ public class ImportBeansTest {
 	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	 */
 
-	@Test
-	public void testImport() {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ImportConfig.class);
-		Printer.printBeans(context);
-        /*~:
-        bean count: 12
-        org.springframework.context.annotation.internalConfigurationAnnotationProcessor
-        org.springframework.context.annotation.internalAutowiredAnnotationProcessor
-        org.springframework.context.annotation.internalCommonAnnotationProcessor
-        org.springframework.context.event.internalEventListenerProcessor
-        org.springframework.context.event.internalEventListenerFactory
-        importConfig
-        com.belonk.imports.bean.Cat
-        com.belonk.imports.bean.Dog
-        com.belonk.imports.bean.Fox
-        com.belonk.imports.bean.Tiger
-        forXml
-        zoo`
-         */
-	}
+
 }
