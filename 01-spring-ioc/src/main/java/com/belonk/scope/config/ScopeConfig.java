@@ -3,6 +3,7 @@ package com.belonk.scope.config;
 import com.belonk.scope.bean.LazyBean;
 import com.belonk.scope.bean.PrototypeBean;
 import com.belonk.componentscan.bean.User;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -57,7 +58,7 @@ public class ScopeConfig {
 	/**
 	 * 默认情况下，Spring管理的bean都是单例的。在IOC容器完成创建之前，会创建所有bean。
 	 *
-	 * @return
+	 * @return bean
 	 */
 	@Bean
 	public User user() {
