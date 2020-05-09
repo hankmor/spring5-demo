@@ -18,5 +18,15 @@
             <artifactId>spring-aspects</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!--
+          -javaagent:spring-instrument-{version}.jar
+          -javaagent:/Users/sun/.m2/repository/org/springframework/spring-instrument/5.2.3.RELEASE/spring-instrument-5.2.3.RELEASE.jar
+          -javaagent:/Users/sun/.m2/repository/org/aspectj/aspectjweaver/1.9.5/aspectjweaver-1.9.5.jar
+         -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-instrument</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
     </dependencies>
 </project>

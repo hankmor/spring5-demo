@@ -55,6 +55,6 @@ public class PropertyValueConfig {
 
     @Bean
     public Person zhongnanshan() {
-        return new Person();
+        return new Person(0);
     }
 }

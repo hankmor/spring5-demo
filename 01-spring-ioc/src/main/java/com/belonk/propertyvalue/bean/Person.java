@@ -1,8 +1,11 @@
 package com.belonk.propertyvalue.bean;
 
+import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.NonNull;
 
 /**
  * Created by sun on 2020/3/22.
@@ -45,6 +48,7 @@ public class Person {
 
     // SpEL
     @Value("#{2020 - 1936}")
+    @NonNull
     private int age;
 
     // 从配置文件获取
