@@ -71,7 +71,7 @@ public class AutowireBeanConfig {
      * 添加两个PrimaryBean
      */
 
-    @Bean
+    @Bean//(autowireCandidate = false) // 设置当前bean不是首选被自动注入的
     public PrimaryBean primaryBean1() {
         return new PrimaryBean("primaryBean1");
     }
@@ -80,10 +80,14 @@ public class AutowireBeanConfig {
      * 这里标注了@Primary注解，优先使用primaryBean2。
      * 如果没有标注，则会抛出NoUniqueBeanDefinitionException异常，因为同一类型的bean容器中存在多个，
      * Spring不知道用哪一个来装配。
+     *
+     * 另外，@Bean注解支持autowireCandidate属性，可以用来设置当前bean不是自动注入的候选bean，即：自动注入不会考虑注入当前bean给其他bean
+     * 如果其他bean依赖的bean仅有一个实例，而且标注了autowireCandidate=false，那么Spring找不到可自动注入的候选bean会抛出
+     * NoSuchBeanDefinitionException异常
      */
 
     @Bean
-    @Primary
+    @Primary // 设置当前bean是首选自动注入bean
     public PrimaryBean primaryBean2() {
         return new PrimaryBean("primaryBean2");
     }
