@@ -120,7 +120,7 @@ public class ComponentScanTest {
     }
 
     @Test
-    public void testMultiComoponentScans() {
+    public void testMultiComponentScans() {
         // 配置了多个ComponentScan，自动扫描@Service和@Controller
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MultiComponentScanConfig.class);
         Printer.printBeans(context);
